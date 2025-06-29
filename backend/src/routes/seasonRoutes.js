@@ -2,7 +2,7 @@
 const express = require("express");
 const { body, validationResult } = require("express-validator");
 const Season = require("../models/Season");
-const auth = require("../middleware/auth");
+const auth = require("./auth");
 const apicache = require("apicache");
 
 const router = express.Router();
