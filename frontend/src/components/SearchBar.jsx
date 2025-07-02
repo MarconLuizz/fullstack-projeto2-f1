@@ -36,7 +36,6 @@ const SearchBar = ({ onSearchResults }) => {
   const [error, setError] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
 
-  // Lista de equipes conhecidas para autocomplete
   const knownTeams = [
     "Red Bull Racing",
     "Mercedes",
@@ -58,7 +57,6 @@ const SearchBar = ({ onSearchResults }) => {
     "Marussia",
   ];
 
-  // Lista de campeões conhecidos para autocomplete
   const knownChampions = [
     "Max Verstappen",
     "Lewis Hamilton",
@@ -90,7 +88,7 @@ const SearchBar = ({ onSearchResults }) => {
     setError("");
 
     try {
-      // Construir query string baseada nos parâmetros de busca
+
       const queryParams = new URLSearchParams();
 
       if (searchParams.year) queryParams.append("year", searchParams.year);
@@ -99,7 +97,7 @@ const SearchBar = ({ onSearchResults }) => {
       if (searchParams.team) queryParams.append("team", searchParams.team);
 
       const response = await fetch(
-        `http://localhost:5000/api/seasons/search?${queryParams}`,
+        `http://localhost:5000/api/seasons?${queryParams}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

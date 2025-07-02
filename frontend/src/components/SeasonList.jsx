@@ -46,7 +46,7 @@ const SeasonList = forwardRef((props, ref) => {
 
       if (response.ok) {
         const data = await response.json();
-        setSeasons(data.sort((a, b) => b.year - a.year)); // Ordenar por ano decrescente
+        setSeasons(data.sort((a, b) => b.year - a.year)); 
       } else {
         setError("Erro ao carregar temporadas");
       }

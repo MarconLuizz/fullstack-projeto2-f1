@@ -3,13 +3,30 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
+const { sanitizeBody, preventNoSQLInjection } = require("./sanitizers");
 
 const router = express.Router();
 
-// Rota do post de login: /api/login
 router.post(
   "/",
-  [body("username").notEmpty(), body("password").notEmpty()],
+  preventNoSQLInjection,
+  sanitizeBody,
+  [
+    body("username")
+      .notEmpty()
+      .withMessage("Username é obrigatório")
+      .isLength({ min: 3, max: 50 })
+      .withMessage("Username deve ter entre 3 e 50 caracteres")
+      .matches(/^[a-zA-Z0-9_]+$/)
+      .withMessage("Username deve conter apenas letras, números e underscore")
+      .trim()
+      .escape(),
+    body("password")
+      .notEmpty()
+      .withMessage("Password é obrigatório")
+      .isLength({ min: 6, max: 100 })
+      .withMessage("Password deve ter entre 6 e 100 caracteres")
+  ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())

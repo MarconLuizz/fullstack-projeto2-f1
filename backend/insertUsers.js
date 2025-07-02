@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-mongoose.connect("mongodb://localhost:27017/f1");
+require("dotenv").config(); 
+mongoose.connect(process.env.MONGO_URI);
 
 // Schema do BD
 const userSchema = new mongoose.Schema({
@@ -15,7 +16,6 @@ async function createUsers() {
   try {
     await User.deleteMany({});
 
-    //usuários pré-cadastrados
     const users = [
       { username: "admin", password: bcrypt.hashSync("password", 10) },
       { username: "user1", password: bcrypt.hashSync("password", 10) },

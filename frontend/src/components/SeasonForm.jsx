@@ -56,7 +56,6 @@ const SeasonForm = ({ onSeasonAdded }) => {
         setFormData({ year: "", champion: "", team: "" });
         setShowSuccess(true);
 
-        // Callback: atualizar a lista de temporadas
         if (onSeasonAdded) {
           onSeasonAdded();
         }
